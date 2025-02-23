@@ -5,6 +5,9 @@ from datetime import datetime
 import threading
 import pandas as pd
 from pymongo import MongoClient
+from flask import Flask
+
+app = Flask(__name__)
 
 # Configure logging
 logging.basicConfig(
@@ -95,14 +98,10 @@ def start_server():
     finally:
         server_socket.close()
 
-def main():
-    """Main entry point for the server."""
-    try:
-        start_server()
-    except KeyboardInterrupt:
-        logging.info("Server stopped by user.")
-    except Exception as e:
-        logging.critical(f"Unexpected server error: {e}")
+@app.route('/')
+def hello():
+    return "Hello, World!"
 
 if __name__ == '__main__':
-    main()
+    start_server()
+    app.run(debug=True)
