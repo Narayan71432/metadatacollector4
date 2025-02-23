@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "datetime": "^0.0.3",
+    "os": "^0.1.2",
+    "pandas": "^0.0.3"
+  }
+}
