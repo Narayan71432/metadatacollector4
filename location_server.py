@@ -68,35 +68,23 @@ def handle_client_connection(client_socket, address):
         logging.error(f"Error handling client connection: {e}")
 
 def start_server():
-    """Start the socket server to receive location data."""
+    """Start the server and listen for incoming connections."""
     setup_logging()
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    
-    try:
-        server_socket.bind((SERVER_HOST, SERVER_PORT))
-        server_socket.listen(5)
-        logging.info(f"Location server listening on {SERVER_HOST}:{SERVER_PORT}")
+    server_socket.bind((SERVER_HOST, SERVER_PORT))
+    server_socket.listen(5)
+    logging.info(f"Server listening on {SERVER_HOST}:{SERVER_PORT}")
 
-        while True:
-            try:
-                client_socket, address = server_socket.accept()
-                
-                # Use threading to handle multiple connections
-                client_thread = threading.Thread(
-                    target=handle_client_connection, 
-                    args=(client_socket, address)
-                )
-                client_thread.start()
-
-            except Exception as connection_error:
-                logging.error(f"Connection error: {connection_error}")
-
-    except Exception as server_error:
-        logging.critical(f"Server startup error: {server_error}")
-    finally:
-        server_socket.close()
+    while True:
+        try:
+            client_socket, address = server_socket.accept()
+            logging.info(f"Accepted connection from {address}")
+            client_thread = threading.Thread(target=handle_client_connection, args=(client_socket, address))
+            client_thread.start()
+        except Exception as connection_error:
+            logging.error(f"Connection error: {connection_error}")
 
 @app.route('/')
 def hello():
@@ -106,6 +94,6 @@ def hello():
 def get_data():
     return 'Hello from the server!'
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     start_server()
     app.run(debug=True)
