@@ -102,6 +102,10 @@ def start_server():
 def hello():
     return "Hello, World!"
 
+@app.route('/data', methods=['GET'])
+def get_data():
+    return 'Hello from the server!'
+
 if __name__ == '__main__':
     start_server()
     app.run(debug=True)
