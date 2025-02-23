@@ -20,7 +20,7 @@ logging.basicConfig(
 )
 
 SERVER_HOST = '0.0.0.0'  # Listen on all available interfaces
-SERVER_PORT = 8080
+SERVER_PORT = 10000  # Render uses port 10000
 
 # MongoDB connection string
 connection_string = "mongodb+srv://metadatacollector1:metadatacollector1@cluster0.shnle.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
