@@ -203,3 +203,12 @@
 2025-02-24 17:41:12,503 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
 2025-02-24 17:41:12,504 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
 2025-02-24 17:41:13,777 - INFO:  * Restarting with watchdog (windowsapi)
+2025-02-24 17:41:16,538 - WARNING:  * Debugger is active!
+2025-02-24 17:41:16,545 - INFO:  * Debugger PIN: 109-687-106
+2025-02-24 17:44:30,813 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:44:30,820 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:44:32,527 - INFO:  * Restarting with watchdog (windowsapi)
+2025-02-24 17:44:35,510 - WARNING:  * Debugger is active!
+2025-02-24 17:44:35,531 - INFO:  * Debugger PIN: 109-687-106
+2025-02-24 17:49:46,993 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:49:47,013 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
