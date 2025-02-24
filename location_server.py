@@ -95,5 +95,4 @@ def get_data():
     return jsonify({'status': 'success', 'message': 'Connected to server'})
 
 if __name__ == "__main__":
-    start_server()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000, debug=True)
