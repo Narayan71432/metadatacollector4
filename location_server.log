@@ -180,3 +180,26 @@
 2025-02-23 14:24:04,868 - INFO: Data inserted successfully into MongoDB!
 2025-02-23 14:24:04,869 - INFO: Saved location data: 8d6d1732-46c3-41d4-bef6-a09ffae82645,12.984086,77.4831154,2025-02-23 14:23:59
 
+2025-02-24 15:06:23,916 - INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.211.158:10000
+2025-02-24 15:06:23,917 - INFO: [33mPress CTRL+C to quit[0m
+2025-02-24 15:06:23,946 - INFO:  * Restarting with watchdog (windowsapi)
+2025-02-24 15:06:25,600 - WARNING:  * Debugger is active!
+2025-02-24 15:06:25,619 - INFO:  * Debugger PIN: 109-687-106
+2025-02-24 15:07:29,363 - INFO: 127.0.0.1 - - [24/Feb/2025 15:07:29] "GET /data HTTP/1.1" 200 -
+2025-02-24 17:37:48,407 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:37:48,432 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:37:49,789 - INFO:  * Restarting with watchdog (windowsapi)
+2025-02-24 17:37:52,878 - WARNING:  * Debugger is active!
+2025-02-24 17:37:52,893 - INFO:  * Debugger PIN: 109-687-106
+2025-02-24 17:40:52,566 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:40:52,587 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:40:54,473 - INFO:  * Restarting with watchdog (windowsapi)
+2025-02-24 17:40:57,976 - WARNING:  * Debugger is active!
+2025-02-24 17:40:58,003 - INFO:  * Debugger PIN: 109-687-106
+2025-02-24 17:41:12,502 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:41:12,503 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:41:12,504 - INFO:  * Detected change in 'D:\\smartwatch\\Android Studio\\set1\\server\\location_server.py', reloading
+2025-02-24 17:41:13,777 - INFO:  * Restarting with watchdog (windowsapi)

@@ -92,7 +92,7 @@ def hello():
 
 @app.route('/data', methods=['GET'])
 def get_data():
-    return jsonify({'status': 'success', 'message': 'Connected to server'})
+    return "Server connected successfully"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=10000, debug=True)
