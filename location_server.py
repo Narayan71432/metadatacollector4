@@ -5,7 +5,7 @@ from datetime import datetime
 import threading
 import pandas as pd
 from pymongo import MongoClient
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
@@ -92,7 +92,7 @@ def hello():
 
 @app.route('/data', methods=['GET'])
 def get_data():
-    return 'Hello from the server!'
+    return jsonify({'status': 'success', 'message': 'Connected to server'})
 
 if __name__ == "__main__":
     start_server()
