@@ -5,7 +5,8 @@ from datetime import datetime
 import threading
 import pandas as pd
 from pymongo import MongoClient
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
+import threading
 
 app = Flask(__name__)
 
@@ -67,15 +68,15 @@ def handle_client_connection(client_socket, address):
     except Exception as e:
         logging.error(f"Error handling client connection: {e}")
 
-def start_server():
-    """Start the server and listen for incoming connections."""
+def start_socket_server():
+    """Start the socket server and listen for incoming connections."""
     setup_logging()
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_socket.bind((SERVER_HOST, SERVER_PORT))
+    server_socket.bind((SERVER_HOST, SERVER_PORT + 1))  # Use a different port for socket
     server_socket.listen(5)
-    logging.info(f"Server listening on {SERVER_HOST}:{SERVER_PORT}")
+    logging.info(f"Socket server listening on {SERVER_HOST}:{SERVER_PORT + 1}")
 
     while True:
         try:
@@ -94,5 +95,34 @@ def hello():
 def get_data():
     return jsonify({'status': 'success', 'message': 'Connected to server'})
 
+@app.route('/api/locations', methods=['POST'])
+def save_location():
+    try:
+        data = request.json
+        
+        # Create a dictionary with appropriate keys
+        data_dict = [{
+            'UUID': data['deviceId'],
+            'Latitude': float(data['latitude']),
+            'Longitude': float(data['longitude']),
+            'Timestamp': data['timestamp']
+        }]
+
+        # Store data in MongoDB
+        store_data_in_mongodb(data_dict)
+        
+        logging.info(f"Saved location data via HTTP: {data_dict}")
+        return jsonify({'status': 'success'}), 200
+        
+    except Exception as e:
+        logging.error(f"Error saving location via HTTP: {e}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 if __name__ == "__main__":
+    # Start socket server in a separate thread
+    socket_thread = threading.Thread(target=start_socket_server)
+    socket_thread.daemon = True
+    socket_thread.start()
+    
+    # Start Flask server
     app.run(host='0.0.0.0', port=10000, debug=True)
