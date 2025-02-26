@@ -40,8 +40,8 @@ def setup_logging():
 def convert_timestamp(timestamp):
     """Convert Unix timestamp to human-readable format in local timezone."""
     try:
-        # Get local timezone
-        local_tz = datetime.now().astimezone().tzinfo
+        # Get local timezone (GMT+5:30)
+        local_tz = pytz.timezone('Asia/Kolkata')
         
         # Try to convert from Unix timestamp (assuming milliseconds)
         if isinstance(timestamp, (int, float)):
@@ -140,6 +140,9 @@ def save_location():
     except Exception as e:
         logging.error(f"Error saving location via HTTP: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
+
+# Test the convert_timestamp function
+print(convert_timestamp(1737900000000))  # Test timestamp
 
 if __name__ == "__main__":
     # Start socket server in a separate thread
