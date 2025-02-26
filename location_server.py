@@ -38,6 +38,7 @@ def setup_logging():
     logger.setLevel(logging.INFO)
 
 def convert_timestamp(timestamp):
+<<<<<<< HEAD
     """Convert Unix timestamp to human-readable format in UTC."""
     try:
         # If the timestamp is already in string format, parse it
@@ -48,6 +49,22 @@ def convert_timestamp(timestamp):
             dt = datetime.fromtimestamp(timestamp / 1000, pytz.UTC)
         # Return the timestamp in 'YYYY-MM-DD HH:MM:SS' format
         return dt.strftime('%Y-%m-%d %H:%M:%S')
+=======
+    """Convert Unix timestamp to human-readable format in local timezone."""
+    try:
+        # Get local timezone
+        local_tz = datetime.now().astimezone().tzinfo
+        
+        # Try to convert from Unix timestamp (assuming milliseconds)
+        if isinstance(timestamp, (int, float)):
+            # Convert to datetime in UTC
+            utc_dt = datetime.fromtimestamp(timestamp/1000, pytz.UTC)
+            # Convert to local timezone
+            local_dt = utc_dt.astimezone(local_tz)
+            return local_dt.strftime('%Y-%m-%d %H:%M:%S')
+        # If it's already a string, try to parse it
+        return timestamp
+>>>>>>> e0747cdfe945d1631b6f2747011f29b657fd05df
     except Exception as e:
         logging.error(f"Error converting timestamp: {e}")
         return timestamp
