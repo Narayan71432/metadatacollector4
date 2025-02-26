@@ -7,6 +7,7 @@ import pandas as pd
 from pymongo import MongoClient
 from flask import Flask, request, jsonify
 import threading
+import pytz  # Add this import for timezone handling
 
 app = Flask(__name__)
 
@@ -37,11 +38,18 @@ def setup_logging():
     logger.setLevel(logging.INFO)
 
 def convert_timestamp(timestamp):
-    """Convert Unix timestamp to human-readable format."""
+    """Convert Unix timestamp to human-readable format in local timezone."""
     try:
+        # Get local timezone
+        local_tz = datetime.now().astimezone().tzinfo
+        
         # Try to convert from Unix timestamp (assuming milliseconds)
         if isinstance(timestamp, (int, float)):
-            return datetime.fromtimestamp(timestamp/1000).strftime('%Y-%m-%d %H:%M:%S')
+            # Convert to datetime in UTC
+            utc_dt = datetime.fromtimestamp(timestamp/1000, pytz.UTC)
+            # Convert to local timezone
+            local_dt = utc_dt.astimezone(local_tz)
+            return local_dt.strftime('%Y-%m-%d %H:%M:%S')
         # If it's already a string, try to parse it
         return timestamp
     except Exception as e:

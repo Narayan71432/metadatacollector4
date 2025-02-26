@@ -1,8 +1,6 @@
 flask
 requests
 gunicorn
-gunicorn
-pandas
 pandas
 pymongo
-pymongo
+pytz
