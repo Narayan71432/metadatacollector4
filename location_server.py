@@ -36,9 +36,24 @@ def setup_logging():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
+def convert_timestamp(timestamp):
+    """Convert Unix timestamp to human-readable format."""
+    try:
+        # Try to convert from Unix timestamp (assuming milliseconds)
+        if isinstance(timestamp, (int, float)):
+            return datetime.fromtimestamp(timestamp/1000).strftime('%Y-%m-%d %H:%M:%S')
+        # If it's already a string, try to parse it
+        return timestamp
+    except Exception as e:
+        logging.error(f"Error converting timestamp: {e}")
+        return timestamp
+
 def store_data_in_mongodb(data):
     """Store incoming data directly into MongoDB Atlas."""
     try:
+        # Convert timestamp in each document
+        for doc in data:
+            doc['Timestamp'] = convert_timestamp(doc['Timestamp'])
         collection.insert_many(data)
         logging.info("Data inserted successfully into MongoDB!")
     except Exception as e:
@@ -58,7 +73,7 @@ def handle_client_connection(client_socket, address):
             'UUID': uuid,
             'Latitude': float(latitude),
             'Longitude': float(longitude),
-            'Timestamp': timestamp
+            'Timestamp': timestamp  # Will be converted in store_data_in_mongodb
         }]
 
         # Store data in MongoDB
@@ -105,7 +120,7 @@ def save_location():
             'UUID': data['deviceId'],
             'Latitude': float(data['latitude']),
             'Longitude': float(data['longitude']),
-            'Timestamp': data['timestamp']
+            'Timestamp': data['timestamp']  # Will be converted in store_data_in_mongodb
         }]
 
         # Store data in MongoDB
