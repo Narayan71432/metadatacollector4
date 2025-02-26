@@ -7,6 +7,7 @@ import pandas as pd
 from pymongo import MongoClient
 from flask import Flask, request, jsonify
 import threading
+import pytz  # Add this import for timezone handling
 
 app = Flask(__name__)
 
@@ -37,13 +38,16 @@ def setup_logging():
     logger.setLevel(logging.INFO)
 
 def convert_timestamp(timestamp):
-    """Convert Unix timestamp to human-readable format."""
+    """Convert Unix timestamp to human-readable format in UTC."""
     try:
-        # Try to convert from Unix timestamp (assuming milliseconds)
-        if isinstance(timestamp, (int, float)):
-            return datetime.fromtimestamp(timestamp/1000).strftime('%Y-%m-%d %H:%M:%S')
-        # If it's already a string, try to parse it
-        return timestamp
+        # If the timestamp is already in string format, parse it
+        if isinstance(timestamp, str):
+            dt = datetime.fromisoformat(timestamp)
+        else:
+            # Assume it's a Unix timestamp (in milliseconds)
+            dt = datetime.fromtimestamp(timestamp / 1000, pytz.UTC)
+        # Return the timestamp in 'YYYY-MM-DD HH:MM:SS' format
+        return dt.strftime('%Y-%m-%d %H:%M:%S')
     except Exception as e:
         logging.error(f"Error converting timestamp: {e}")
         return timestamp
@@ -51,7 +55,7 @@ def convert_timestamp(timestamp):
 def store_data_in_mongodb(data):
     """Store incoming data directly into MongoDB Atlas."""
     try:
-        # Convert timestamp in each document
+        # Convert timestamp in each document to UTC
         for doc in data:
             doc['Timestamp'] = convert_timestamp(doc['Timestamp'])
         collection.insert_many(data)
